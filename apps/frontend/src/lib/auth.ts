@@ -1,17 +1,19 @@
-const TOKEN_KEY = "dq_token";
-
 export function setToken(token: string) {
-  localStorage.setItem(TOKEN_KEY, token);
+  document.cookie = `token=${token}; path=/;`;
 }
 
 export function getToken() {
-  return localStorage.getItem(TOKEN_KEY);
+  return document.cookie
+    .split("; ")
+    .find(row => row.startsWith("token="))
+    ?.split("=")[1];
 }
 
 export function removeToken() {
-  localStorage.removeItem(TOKEN_KEY);
+  document.cookie = "token=; Max-Age=0; path=/;";
 }
-
 export function isAuthenticated() {
-  return !!getToken();
+  if (typeof document === "undefined") return false;
+
+  return document.cookie.includes("token=");
 }

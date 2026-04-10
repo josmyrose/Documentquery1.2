@@ -16,7 +16,7 @@ export default function LoginPage() {
     // TEMP login (we connect backend later)
     if (email && password) {
       setToken("demo-token");
-      router.push("/");
+      router.push("/workspace");
     }
   }
 
